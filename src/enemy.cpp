@@ -5,30 +5,23 @@
 Enemy::Enemy(const std::string &name, int hp, int damage)
     : name(name), hp(hp), damage(damage) {}
 
-std::string Enemy::getName() const
+void Enemy::attack(Player &player)
 {
-    return name;
+    std::cout << name << " attacks for " << damage << " damage!\n";
+    player.takeDamage(damage);
 }
 
-int Enemy::getHP() const
+void Enemy::specialAbility(Player &player)
 {
-    return hp;
+    // Basic enemy has no special ability
 }
 
+std::string Enemy::getName() const { return name; }
+int Enemy::getHP() const { return hp; }
+bool Enemy::isAlive() const { return hp > 0; }
 void Enemy::takeDamage(int dmg)
 {
     hp -= dmg;
     if (hp < 0)
         hp = 0;
-}
-
-void Enemy::attack(Player &player)
-{
-    std::cout << name << " útočí za " << damage << " poškodenia!\n";
-    player.takeDamage(damage);
-}
-
-bool Enemy::isAlive() const
-{
-    return hp > 0;
 }

@@ -14,6 +14,8 @@ private:
 public:
     Game();
     void start();
+    bool saveGame() const;
+    bool loadGame();
 };
 
 #endif

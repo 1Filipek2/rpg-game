@@ -2,6 +2,7 @@
 #define ENEMY_HPP
 
 #include <string>
+#include <iostream>
 
 class Player;
 
@@ -16,11 +17,12 @@ public:
     Enemy(const std::string &name, int hp, int damage);
     virtual ~Enemy() = default;
 
-    virtual std::string getName() const;
-    virtual int getHP() const;
-    virtual void takeDamage(int dmg);
     virtual void attack(Player &player);
-    virtual bool isAlive() const;
+    virtual void specialAbility(Player &player); // special ability
+    std::string getName() const;
+    int getHP() const;
+    bool isAlive() const;
+    void takeDamage(int dmg);
 };
 
 #endif

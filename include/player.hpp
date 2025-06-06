@@ -1,11 +1,11 @@
 #ifndef PLAYER_HPP
 #define PLAYER_HPP
 
-#include "weapon.hpp"
-#include "potion.hpp"
-#include "inventory.hpp"
 #include <memory>
-#include <string>
+#include "weapon.hpp"
+#include "inventory.hpp"
+
+class Enemy;
 
 class Player
 {
@@ -22,16 +22,26 @@ public:
     int getHP() const;
     int getXP() const;
     int getLevel() const;
+
+    void setHP(int val);
+    void setXP(int val);
+    void setLevel(int val);
+
     void takeDamage(int dmg);
-    void attack(class Enemy &enemy);
+    void chooseWeapon();
+    void attack(Enemy &enemy);
     void heal();
     bool isAlive() const;
     void printStatus() const;
-
     void gainXP(int amount);
     void levelUp();
 
     Inventory &getInventory();
+    const Inventory &getInventory() const;
+
+    std::unique_ptr<Weapon> &getWeapon();
+    const std::unique_ptr<Weapon> &getWeapon() const;
+    void setWeapon(std::unique_ptr<Weapon> wpn);
 };
 
 #endif

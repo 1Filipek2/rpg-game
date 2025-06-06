@@ -1,7 +1,9 @@
 #include "weapon.hpp"
 
-Weapon::Weapon(const std::string &name, int damage)
-    : name(name), damage(damage) {}
+Weapon::Weapon(const std::string &name, int damage, WeaponEffect effect)
+    : name(name), damage(damage), effect(effect) {}
+
+WeaponEffect Weapon::getEffect() const { return effect; }
 
 std::string Weapon::getName() const
 {

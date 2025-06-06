@@ -21,16 +21,16 @@ size_t Inventory::choosePotionIndex()
 {
     if (potions.empty())
     {
-        std::cout << "Nemáš žiadne potiony.\n";
+        std::cout << "You have no potions.\n";
         return (size_t)-1;
     }
     listPotions();
-    std::cout << "Vyber číslo potionu: ";
+    std::cout << "Choose potion number: ";
     size_t idx;
     std::cin >> idx;
     if (idx < 1 || idx > potions.size())
     {
-        std::cout << "Neplatná voľba.\n";
+        std::cout << "Invalid choice.\n";
         return (size_t)-1;
     }
     return idx - 1;
@@ -38,7 +38,7 @@ size_t Inventory::choosePotionIndex()
 
 void Inventory::listWeapons() const
 {
-    std::cout << "Zbrane v inventári:\n";
+    std::cout << "Weapons in inventory:\n";
     for (size_t i = 0; i < weapons.size(); ++i)
     {
         std::cout << i + 1 << ". " << weapons[i]->getName() << " (" << weapons[i]->getDamage() << " dmg)\n";
@@ -47,10 +47,10 @@ void Inventory::listWeapons() const
 
 void Inventory::listPotions() const
 {
-    std::cout << "Potiony v inventári:\n";
+    std::cout << "Potions in inventory:\n";
     for (size_t i = 0; i < potions.size(); ++i)
     {
-        std::cout << i + 1 << ". Potion (+" << potions[i].use() << " HP)\n";
+        std::cout << i + 1 << ". " << potions[i].getName() << " (+" << potions[i].use() << " HP)\n";
     }
 }
 
@@ -58,16 +58,16 @@ Weapon *Inventory::chooseWeapon()
 {
     if (weapons.empty())
     {
-        std::cout << "Nemáš žiadne zbrane.\n";
+        std::cout << "You have no weapons.\n";
         return nullptr;
     }
     listWeapons();
-    std::cout << "Vyber číslo zbrane: ";
+    std::cout << "Choose weapon number: ";
     size_t idx;
     std::cin >> idx;
     if (idx < 1 || idx > weapons.size())
     {
-        std::cout << "Neplatná voľba.\n";
+        std::cout << "Invalid choice.\n";
         return nullptr;
     }
     return weapons[idx - 1].get();
@@ -78,4 +78,34 @@ int Inventory::usePotionAt(size_t idx)
     if (idx < potions.size())
         return potions[idx].use();
     return 0;
+}
+
+void Inventory::printInventory() const
+{
+    std::cout << "=== INVENTORY ===\n";
+    std::cout << "Number of potions: " << potions.size() << "\n";
+    listPotions();
+    std::cout << "Number of weapons: " << weapons.size() << "\n";
+    listWeapons();
+    std::cout << "=================\n";
+}
+
+const std::vector<Potion> &Inventory::getPotions() const
+{
+    return potions;
+}
+
+const std::vector<std::unique_ptr<Weapon>> &Inventory::getWeapons() const
+{
+    return weapons;
+}
+
+void Inventory::clearPotions()
+{
+    potions.clear();
+}
+
+void Inventory::clearWeapons()
+{
+    weapons.clear();
 }
